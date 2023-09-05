@@ -42,8 +42,8 @@ function Home() {
       .catch((err) => console.error(err));
   }, []);
 
-  //   console.log(genreCodes);
-  //   console.log(movies);
+  // console.log(genreCodes);
+  // console.log(movies);
   return (
     <div>
       {loading ? (
@@ -53,6 +53,7 @@ function Home() {
           {movies.map((movie) => (
             <Movie
               key={movie.id}
+              id={movie.id}
               coverImg={movie.poster_path}
               title={movie.title}
               overview={movie.overview}
