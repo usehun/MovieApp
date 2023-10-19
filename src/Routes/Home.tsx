@@ -1,10 +1,34 @@
 import { useEffect, useState } from "react";
 import Movie from "../Components/Movie";
 
+interface MoviesProps {
+  id: number;
+  poster_path: string;
+  title: string;
+  overview: string;
+  genre_ids: Array<number>;
+  vote_average: number;
+}
+
+interface MovieProps {
+  id: number;
+  poster_path: string;
+  title: string;
+  overview: string;
+  genre_ids: Array<number>;
+  vote_average: number;
+}
+
+interface GenreCodesProps {
+  id: number;
+  name: string;
+}
+
 function Home() {
   const [loading, setLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const [genreCodes, setGenreCodes] = useState([]);
+  const [movies, setMovies] = useState<MoviesProps[]>([]);
+  const [genreCodes, setGenreCodes] = useState<GenreCodesProps[]>([]);
+  // const [imgDegree, setImgDegree] = useState([]);
   //   const options = {
   //     method: "GET",
   //     headers: {
@@ -18,7 +42,7 @@ function Home() {
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en`,
-      []
+      [] as any
     )
       .then((response) => response.json())
       .then((json) => {
@@ -31,7 +55,7 @@ function Home() {
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=1`,
-      []
+      [] as any
     )
       .then((response) => response.json())
       .then((json) => {
@@ -43,14 +67,21 @@ function Home() {
   }, []);
 
   // console.log(genreCodes);
-  // console.log(movies);
+  useEffect(() => {});
+  let imgCnt: number[] = []; // 20
+  let imgDegree: number[] = []; // 각각 1~20
+  for (let i = 0; i < movies.length; i++) {
+    imgCnt.push(i);
+    imgDegree.push(i);
+  }
+
   return (
     <div>
       {loading ? (
         <h1>Loading...</h1>
       ) : (
         <div>
-          {movies.map((movie) => (
+          {movies.map((movie: MovieProps, imgDegree: number) => (
             <Movie
               key={movie.id}
               id={movie.id}
@@ -60,6 +91,8 @@ function Home() {
               genre_Codes={genreCodes}
               genre_ids={movie.genre_ids}
               vote_average={movie.vote_average}
+              imgCnt={imgCnt}
+              imgDegree={imgDegree}
             />
           ))}
         </div>

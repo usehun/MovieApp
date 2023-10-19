@@ -1,5 +1,24 @@
 import PropTypes from "prop-types";
-import ContentCss from "../CSS/Content.module.css";
+import styled from "styled-components";
+// import ContentCss from "../CSS/Content.module.css";
+
+const BG = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+`;
+
+interface ContentProps {
+  id: number;
+  cover_img: string;
+  title: string;
+  overview: string;
+  release_date: string;
+  genres: Array<object>;
+  runtime: number;
+  bg_img: string;
+}
 
 function Content({
   id,
@@ -10,9 +29,10 @@ function Content({
   genres,
   runtime,
   bg_img,
-}) {
+}: ContentProps) {
   return (
-    <div className={ContentCss.bg} key={id}>
+    <div key={id}>
+      <BG src={`http://image.tmdb.org/t/p/original/${bg_img}`}></BG>
       <img
         src={`http://image.tmdb.org/t/p/w500/${cover_img}`}
         alt={title}
@@ -21,12 +41,11 @@ function Content({
       <p>{overview}</p>
       <p>{release_date}</p>
       <ul>
-        {genres.map((g) => (
+        {genres.map((g: any) => (
           <li key={g.id}>{g.name}</li>
         ))}
       </ul>
       <p>{runtime}</p>
-      <img src={`http://image.tmdb.org/t/p/w500/${bg_img}`}></img>
     </div>
   );
 }

@@ -8,6 +8,12 @@
 
     페이지 이동 구현 및 Detail.js, content.js 작성
 
+### Add Css, TypeSctipt
+
+#### 2023-10-19 Css, TypeSctipt 추가
+
+#### 2023-09-07 Styled-components, Animation
+
 #### 2023-09-05 Detail.js, Content.js 작성
 
 #### 2023-09-04 Components, Routes
